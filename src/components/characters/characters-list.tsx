@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
 import { FlatList, Text } from 'react-native'
-import { ICharacter } from 'interfaces/character/ICharacter'
-import styled from 'styled-components/native'
 
 import { CharactersQuery, useCharactersQuery } from 'src/generated/graphql'
 
 import { CharacterCard } from './character-card'
 
-const CustomFlatList = styled(FlatList)`
-  width: 100%;
-  flex-direction: column;
-`
 export type ExtractFromArray<T> = T extends Array<infer Item> ? Item : never
 type Character = ExtractFromArray<CharactersQuery['characters']['results']>
-
-interface IRenderItem {
-  item?: Character | null
-}
 
 export const CharactersList = () => {
   const [currentPage, setCurrentPage] = useState(1)

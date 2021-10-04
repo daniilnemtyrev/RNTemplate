@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3D828E1C2707298A00696A67 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D828E1B2707298A00696A67 /* libRNVectorIcons.a */; };
 		3DACD1A427046C3800E2BED0 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DACD1A327046C3800E2BED0 /* libRNSVG.a */; };
 		567656BEA8034E4095EBFAA5 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA664238B57E4C988632B520 /* Montserrat-Black.ttf */; };
 		6172F2D35A4C3AA820D92908 /* libPods-RNtemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-RNtemplate.a */; };
@@ -51,6 +52,7 @@
 		183E214613AE40A8BD6819AB /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		1D0AE47A65C8663E3B452821 /* Pods-RNtemplate-RNtemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNtemplate-RNtemplateTests.release.xcconfig"; path = "Target Support Files/Pods-RNtemplate-RNtemplateTests/Pods-RNtemplate-RNtemplateTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FDD4278FAE5401E83726C23 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		3D828E1B2707298A00696A67 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DACD1A327046C3800E2BED0 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4285F15B068B44CC83DCD259 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Thin.ttf"; path = "../assets/fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; };
 		6079D767089B441DB981C98C /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraLight.ttf"; path = "../assets/fonts/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D828E1C2707298A00696A67 /* libRNVectorIcons.a in Frameworks */,
 				3DACD1A427046C3800E2BED0 /* libRNSVG.a in Frameworks */,
 				6172F2D35A4C3AA820D92908 /* libPods-RNtemplate.a in Frameworks */,
 			);
@@ -120,6 +123,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D828E1B2707298A00696A67 /* libRNVectorIcons.a */,
 				3DACD1A327046C3800E2BED0 /* libRNSVG.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				6423831EA8574132BED9D8CC /* libPods-RNtemplate.a */,
@@ -373,7 +377,8 @@
 		};
 		ADC9DDC32298B72B3CF5DC8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -383,7 +388,7 @@
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RNtemplate/Pods-RNtemplate-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNtemplate/Pods-RNtemplate-resources.sh\"\n";
 			showEnvVarsInLog = 0;
