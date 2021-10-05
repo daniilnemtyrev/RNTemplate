@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { RadioState } from 'interfaces/filters/RadioState'
 import styled from 'styled-components/native'
 
+import { StateSetter } from 'src/components/characters/filters-context'
 import { colors } from 'src/theme/colors'
 import { RadioButton } from 'src/ui/radio-button'
 
@@ -58,15 +59,29 @@ const Line = styled.View`
   width: 100%;
   margin-top: 10px;
 `
+interface Props {
+  filtersArray: string[]
+  name?: string
+  children?: ReactNode
+  checked?: string
+  line?: number
+  setChecked: StateSetter<string>
+}
 
-export const StatusFilter = ({ checked, setChecked }: RadioState) => {
-  const statusArr = ['Alive', 'Dead', 'Unknown']
-
+export const RadioGroupFilter = ({
+  checked,
+  filtersArray,
+  name,
+  line,
+  children,
+  setChecked,
+  ...rest
+}: Props) => {
   return (
     <>
-      <FilterName>Status</FilterName>
+      <FilterName>{name}</FilterName>
       <RadioGroup>
-        {statusArr.map((status, index) => {
+        {filtersArray.map((status, index) => {
           return (
             <Filter key={status + index}>
               <StyledRadioButton
@@ -76,7 +91,7 @@ export const StatusFilter = ({ checked, setChecked }: RadioState) => {
               />
               <TextLabel>
                 <LabelName>{status}</LabelName>
-                {index !== 2 && <Line />}
+                {index !== line && <Line />}
               </TextLabel>
             </Filter>
           )

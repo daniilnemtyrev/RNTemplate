@@ -1,11 +1,20 @@
 import React from 'react'
 import { TouchableOpacityProps } from 'react-native'
 import styled from 'styled-components/native'
+import { ifProp } from 'styled-tools'
 
 import { colors } from 'src/theme/colors'
 
-const RadioBlock = styled.TouchableOpacity`
-  background-color: ${(props) => props.color};
+interface StyledProps {
+  status: string | undefined
+}
+
+const RadioBlock = styled.TouchableOpacity<StyledProps>`
+  background-color: ${ifProp(
+    { status: 'checked' },
+    colors.purple,
+    colors.white,
+  )};
 `
 
 interface Props extends TouchableOpacityProps {
@@ -15,11 +24,5 @@ interface Props extends TouchableOpacityProps {
 }
 
 export const RadioButton = ({ onPress, status, title, ...rest }: Props) => {
-  return (
-    <RadioBlock
-      onPress={onPress}
-      {...rest}
-      color={status === 'checked' ? colors.purple : colors.white}
-    />
-  )
+  return <RadioBlock onPress={onPress} status={status} {...rest} />
 }

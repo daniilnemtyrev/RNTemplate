@@ -1,15 +1,12 @@
-import React from 'react'
-import { RadioProps } from 'interfaces/filters/RadioProps'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
 
 import { colors } from 'src/theme/colors'
 import { Button } from 'src/ui/button'
+import { RadioGroupFilter } from 'src/ui/radio-group-filters'
+import { SearchFilter } from 'src/ui/search-filter'
 
-import { useCharacterFiltersContext } from './filters-context'
-import { GenderFilter } from './gender-filter'
-import { NameFilter } from './name-filter'
-import { SpeciesFilter } from './species-filter'
-import { StatusFilter } from './status-filter'
+import { StateSetter, useCharacterFiltersContext } from './filters-context'
 
 const Container = styled.View`
   background: ${colors.white};
@@ -27,7 +24,7 @@ const Header = styled.View`
   margin-bottom: 23px;
 `
 
-const StyledButton = styled(Button)`
+const StyledButtonApply = styled(Button)`
   background: ${colors.purple};
   padding: 5px 12px;
   border-radius: 24px;
@@ -35,34 +32,104 @@ const StyledButton = styled(Button)`
   right: 15px;
   top: 25px;
 `
+
+const StyledButtonClear = styled(Button)`
+  position: absolute;
+  left: 16px;
+  top: 14px;
+`
+
+const TextClearButton = styled.Text`
+  color: ${colors.purple};
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+`
 const CustomText = styled.Text``
 
-export const CharactersFilterModal = ({}) => {
+interface ModalState {
+  setIsVisible: StateSetter<boolean>
+}
+
+export const CharactersFilterModal = ({ setIsVisible }: ModalState) => {
   const {
     checkedName,
     checkedStatus,
     checkedGender,
     checkedSpecies,
+    setCurrentFilters,
     setCheckedGender,
     setCheckedStatus,
     setCheckedName,
     setCheckedSpecies,
   } = useCharacterFiltersContext()
 
+  useEffect(() => {
+    setCurrentFilters({
+      gender: checkedGender,
+      name: checkedName,
+      species: checkedSpecies,
+      status: checkedStatus,
+    })
+  }, [
+    checkedName,
+    checkedStatus,
+    checkedGender,
+    checkedSpecies,
+    setCurrentFilters,
+  ])
+
+  const clearFilter = () => {
+    setCheckedGender('')
+    setCheckedStatus('')
+    setCheckedName('')
+    setCheckedSpecies('')
+  }
+
   return (
-    <Container>
-      <Header>
-        <CustomText>Filter</CustomText>
-        <StyledButton title={'APPLY'} />
-      </Header>
+    <>
+      <Container>
+        <Header>
+          <CustomText>Filter</CustomText>
+          <StyledButtonApply
+            onPress={() => setIsVisible(false)}
+            title={'APPLY'}
+          />
+          <StyledButtonClear onPress={clearFilter}>
+            <TextClearButton>Clear</TextClearButton>
+          </StyledButtonClear>
+        </Header>
 
-      <NameFilter checked={checkedName} setChecked={setCheckedName} />
+        <SearchFilter
+          checked={checkedName}
+          onPress={() => setCheckedName('checked')}
+          name={'Name'}
+          promt={'Give a name'}
+        />
 
-      <SpeciesFilter checked={checkedSpecies} setChecked={setCheckedSpecies} />
+        <SearchFilter
+          checked={checkedSpecies}
+          onPress={() => setCheckedSpecies('checked')}
+          name={'Species'}
+          promt={'Select one'}
+        />
 
-      <StatusFilter checked={checkedStatus} setChecked={setCheckedStatus} />
+        <RadioGroupFilter
+          checked={checkedStatus}
+          setChecked={setCheckedStatus}
+          filtersArray={['Alive', 'Dead', 'Unknown']}
+          name={'Status'}
+          line={2}
+        />
 
-      <GenderFilter checked={checkedGender} setChecked={setCheckedGender} />
-    </Container>
+        <RadioGroupFilter
+          checked={checkedGender}
+          setChecked={setCheckedGender}
+          filtersArray={['Female', 'Male', 'Genderless', 'Unknown']}
+          name={'Gender'}
+          line={3}
+        />
+      </Container>
+    </>
   )
 }

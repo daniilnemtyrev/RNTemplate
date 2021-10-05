@@ -1,5 +1,4 @@
-import React from 'react'
-import { RadioState } from 'interfaces/filters/RadioState'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components/native'
 
 import { colors } from 'src/theme/colors'
@@ -49,17 +48,27 @@ const TextLabel = styled.View`
   width: 100%;
 `
 
-export const SpeciesFilter = ({ checked, setChecked }: RadioState) => {
+interface Props {
+  name?: string
+  promt?: string
+  children?: ReactNode
+  checked?: string
+  onPress?: () => void
+}
+
+export const SearchFilter = ({
+  checked,
+  onPress,
+  name,
+  promt,
+  ...rest
+}: Props) => {
   return (
-    <Filter>
-      <StyledRadioButton
-        title={''}
-        status={checked === 'second' ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('second')}
-      />
+    <Filter {...rest}>
+      <StyledRadioButton title={''} status={checked} onPress={onPress} />
       <TextLabel>
-        <LabelName>Species</LabelName>
-        <LabelPromt>Select one</LabelPromt>
+        <LabelName>{name}</LabelName>
+        <LabelPromt>{promt}</LabelPromt>
       </TextLabel>
     </Filter>
   )
