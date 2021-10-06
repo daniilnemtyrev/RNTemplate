@@ -6,7 +6,7 @@ import { StateSetter } from 'src/components/characters/filters-context'
 import { colors } from 'src/theme/colors'
 import { RadioButton } from 'src/ui/radio-button'
 
-const Filter = styled.View`
+const Filter = styled.TouchableOpacity`
   align-items: center;
   padding-left: 19px;
   flex-direction: row;
@@ -65,7 +65,7 @@ interface Props {
   children?: ReactNode
   checked?: string
   line?: number
-  setChecked: StateSetter<string>
+  updateFilter: (value: string) => void
 }
 
 export const RadioGroupFilter = ({
@@ -74,23 +74,23 @@ export const RadioGroupFilter = ({
   name,
   line,
   children,
-  setChecked,
+  updateFilter,
   ...rest
 }: Props) => {
   return (
     <>
       <FilterName>{name}</FilterName>
       <RadioGroup>
-        {filtersArray.map((status, index) => {
+        {filtersArray.map((filter, index) => {
           return (
-            <Filter key={status + index}>
+            <Filter onPress={() => updateFilter(filter)} key={filter + index}>
               <StyledRadioButton
                 title={''}
-                onPress={() => setChecked(status)}
-                status={checked === status ? 'checked' : 'unchecked'}
+                onPress={() => updateFilter(filter)}
+                status={checked === filter ? 'checked' : 'unchecked'}
               />
               <TextLabel>
-                <LabelName>{status}</LabelName>
+                <LabelName>{filter}</LabelName>
                 {index !== line && <Line />}
               </TextLabel>
             </Filter>

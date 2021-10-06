@@ -13,37 +13,26 @@ import { FilterCharacter } from 'src/generated/graphql'
 export type StateSetter<T> = Dispatch<SetStateAction<T>>
 
 interface IContext {
-  checkedName: string
-  checkedStatus: string
-  checkedGender: string
-  checkedSpecies: string
-  isCheked: boolean
+  filters: FilterCharacter
   currentFilters: FilterCharacter
-  setCheckedGender: StateSetter<string>
-  setCheckedStatus: StateSetter<string>
-  setCheckedName: StateSetter<string>
-  setCheckedSpecies: StateSetter<string>
-  setIsCheked: StateSetter<boolean>
+  setFilters: StateSetter<FilterCharacter>
   setCurrentFilters: StateSetter<FilterCharacter>
 }
 
 const initialState: IContext = {
-  checkedName: '',
-  checkedStatus: '',
-  checkedGender: '',
-  checkedSpecies: '',
-  isCheked: false,
+  filters: {
+    gender: '',
+    name: '',
+    species: '',
+    status: '',
+  },
   currentFilters: {
     gender: '',
     name: '',
     species: '',
     status: '',
   },
-  setCheckedGender: (checkedGender) => checkedGender,
-  setCheckedStatus: (checkedStatus) => checkedStatus,
-  setCheckedName: (checkedName) => checkedName,
-  setCheckedSpecies: (checkedSpecies) => checkedSpecies,
-  setIsCheked: (isCheked) => isCheked,
+  setFilters: (filters) => filters,
   setCurrentFilters: (currentFilters) => currentFilters,
 }
 
@@ -54,10 +43,12 @@ type Props = { children: React.ReactNode }
 export const CharacterFiltersContextProvider = ({
   children,
 }: Props): ReactElement => {
-  const [checkedName, setCheckedName] = useState('')
-  const [checkedSpecies, setCheckedSpecies] = useState('')
-  const [checkedStatus, setCheckedStatus] = useState('')
-  const [checkedGender, setCheckedGender] = useState('')
+  const [filters, setFilters] = useState<FilterCharacter>({
+    gender: '',
+    name: '',
+    species: '',
+    status: '',
+  })
   const [currentFilters, setCurrentFilters] = useState<FilterCharacter>({
     gender: '',
     name: '',
@@ -65,30 +56,14 @@ export const CharacterFiltersContextProvider = ({
     status: '',
   })
 
-  const [isCheked, setIsCheked] = useState(false)
   const value = useMemo(
     () => ({
-      checkedName,
-      checkedStatus,
-      checkedGender,
-      checkedSpecies,
-      isCheked,
+      filters,
       currentFilters,
-      setCheckedGender,
-      setCheckedStatus,
-      setCheckedName,
-      setCheckedSpecies,
-      setIsCheked,
+      setFilters,
       setCurrentFilters,
     }),
-    [
-      checkedName,
-      checkedStatus,
-      checkedGender,
-      checkedSpecies,
-      isCheked,
-      currentFilters,
-    ],
+    [filters, currentFilters],
   )
 
   return (

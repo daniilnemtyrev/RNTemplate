@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { colors } from 'src/theme/colors'
 import { RadioButton } from 'src/ui/radio-button'
 
-const Filter = styled.View`
+const Filter = styled.TouchableOpacity`
   align-items: center;
   padding-left: 19px;
   flex-direction: row;
@@ -64,7 +64,7 @@ export const SearchFilter = ({
   ...rest
 }: Props) => {
   return (
-    <Filter {...rest}>
+    <Filter onPress={onPress} {...rest}>
       <StyledRadioButton title={''} status={checked} onPress={onPress} />
       <TextLabel>
         <LabelName>{name}</LabelName>

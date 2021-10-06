@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import { CharactersList } from 'src/components/characters/characters-list'
 import { CharacterFiltersContextProvider } from 'src/components/characters/filters-context'
 import { CharactersFilterModal } from 'src/components/characters/filters-modal'
-import { NameFilterModal } from 'src/components/characters/name-filter-modal'
 import { useNavigation } from 'src/navigation/routes'
 import { colors } from 'src/theme/colors'
 import { Button } from 'src/ui/button'
@@ -32,7 +31,6 @@ const StyledButton = styled(Button)`
 
 export const CharacterScreen = () => {
   const [visibleFilters, setIsVisibleFilters] = useState(false)
-  const [visibleNameFilter, setIsVisibleNameFilter] = useState(false)
   const navigation = useNavigation()
 
   navigation.setOptions({
