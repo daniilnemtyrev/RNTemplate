@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
 import { TouchableOpacityProps } from 'react-native'
 import styled from 'styled-components/native'
-import { ifProp } from 'styled-tools'
 
 import { colors } from 'src/theme/colors'
 

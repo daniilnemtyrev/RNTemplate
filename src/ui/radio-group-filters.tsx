@@ -1,0 +1,102 @@
+import React, { ReactNode } from 'react'
+import { RadioState } from 'interfaces/filters/RadioState'
+import styled from 'styled-components/native'
+
+import { StateSetter } from 'src/components/characters/filters-context'
+import { colors } from 'src/theme/colors'
+import { RadioButton } from 'src/ui/radio-button'
+
+const Filter = styled.TouchableOpacity`
+  align-items: center;
+  padding-left: 19px;
+  flex-direction: row;
+  margin-bottom: 11px;
+`
+
+const FilterName = styled.Text`
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: ${colors.gray[3]};
+  padding-left: 16px;
+  margin-bottom: 16px;
+`
+const RadioGroup = styled.View`
+  border-top-color: ${colors.gray[3]};
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${colors.gray[3]};
+  padding-top: 11px;
+  margin-bottom: 30px;
+`
+const LabelName = styled.Text`
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+`
+
+const StyledRadioButton = styled(RadioButton)`
+  width: 22px;
+  height: 22px;
+  border: 1px solid ${colors.gray[3]};
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  margin-right: 16px;
+`
+
+const TextLabel = styled.View`
+  width: 100%;
+`
+
+const Line = styled.View`
+  border-top-color: ${colors.gray[3]};
+  border-top-width: 1px;
+  width: 100%;
+  margin-top: 10px;
+`
+interface Props {
+  filtersArray: string[]
+  name?: string
+  children?: ReactNode
+  checked?: string
+  line?: number
+  updateFilter: (value: string) => void
+}
+
+export const RadioGroupFilter = ({
+  checked,
+  filtersArray,
+  name,
+  line,
+  children,
+  updateFilter,
+  ...rest
+}: Props) => {
+  return (
+    <>
+      <FilterName>{name}</FilterName>
+      <RadioGroup>
+        {filtersArray.map((filter, index) => {
+          return (
+            <Filter onPress={() => updateFilter(filter)} key={filter + index}>
+              <StyledRadioButton
+                title={''}
+                onPress={() => updateFilter(filter)}
+                status={checked === filter ? 'checked' : 'unchecked'}
+              />
+              <TextLabel>
+                <LabelName>{filter}</LabelName>
+                {index !== line && <Line />}
+              </TextLabel>
+            </Filter>
+          )
+        })}
+      </RadioGroup>
+    </>
+  )
+}

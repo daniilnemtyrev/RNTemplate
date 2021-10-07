@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 
-import { CharactersFilterModal } from 'src/components/characters/characters-filter-modal'
 import { CharactersList } from 'src/components/characters/characters-list'
+import { CharacterFiltersContextProvider } from 'src/components/characters/filters-context'
+import { CharactersFilterModal } from 'src/components/characters/filters-modal'
 import { useNavigation } from 'src/navigation/routes'
 import { colors } from 'src/theme/colors'
 import { Button } from 'src/ui/button'
@@ -22,31 +23,32 @@ const CustomText = styled.Text`
 `
 
 const StyledButton = styled(Button)`
-  width: 42;
-  height: 22;
-  margin-bottom: 40;
-  margin-right: 16;
+  width: 42px;
+  height: 22px;
+  margin-bottom: 40px;
+  margin-right: 16px;
 `
 
 export const CharacterScreen = () => {
-  const [visible, setIsVisible] = useState(false)
+  const [visibleFilters, setIsVisibleFilters] = useState(false)
   const navigation = useNavigation()
+
   navigation.setOptions({
     headerRight: () => (
-      <StyledButton onPress={() => setIsVisible(true)}>
+      <StyledButton onPress={() => setIsVisibleFilters(true)}>
         <CustomText>Filter</CustomText>
       </StyledButton>
     ),
   })
 
   return (
-    <>
-      <ModalMenu showModal={visible} setShowModal={setIsVisible}>
-        <CharactersFilterModal />
+    <CharacterFiltersContextProvider>
+      <ModalMenu showModal={visibleFilters} setShowModal={setIsVisibleFilters}>
+        <CharactersFilterModal setIsVisible={setIsVisibleFilters} />
       </ModalMenu>
       <Content>
         <CharactersList />
       </Content>
-    </>
+    </CharacterFiltersContextProvider>
   )
 }

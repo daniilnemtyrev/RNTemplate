@@ -86,11 +86,11 @@ export type Episodes = {
 }
 
 export type FilterCharacter = {
-  gender: Maybe<Scalars['String']>
-  name: Maybe<Scalars['String']>
-  species: Maybe<Scalars['String']>
-  status: Maybe<Scalars['String']>
-  type: Maybe<Scalars['String']>
+  gender?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  species?: Maybe<Scalars['String']>
+  status?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
 }
 
 export type FilterEpisode = {
@@ -201,6 +201,7 @@ export type QueryLocationsByIdsArgs = {
 
 export type CharactersQueryVariables = Exact<{
   page: Maybe<Scalars['Int']>
+  filter: Maybe<FilterCharacter>
 }>
 
 export type CharactersQuery = {
@@ -222,8 +223,8 @@ export type CharactersQuery = {
 }
 
 export const CharactersDocument = gql`
-  query Characters($page: Int) {
-    characters(page: $page) {
+  query Characters($page: Int, $filter: FilterCharacter) {
+    characters(page: $page, filter: $filter) {
       results {
         id
         name
@@ -247,6 +248,7 @@ export const CharactersDocument = gql`
  * const { data, loading, error } = useCharactersQuery({
  *   variables: {
  *      page: // value for 'page'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
