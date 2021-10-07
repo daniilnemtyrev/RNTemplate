@@ -91,6 +91,7 @@ export const CharactersFilterModal = ({ setIsVisible }: ModalState) => {
         setShowModal={setIsVisibleNameFilter}>
         <SearchFilterModal
           updateFilter={updateFilterName}
+          value={filters.name}
           name={'Name'}
           setIsVisible={setIsVisibleNameFilter}
         />
@@ -101,6 +102,7 @@ export const CharactersFilterModal = ({ setIsVisible }: ModalState) => {
         setShowModal={setIsVisibleSpeciesFilter}>
         <SearchFilterModal
           updateFilter={updateFilterSpecies}
+          value={filters.species}
           name={'Species'}
           setIsVisible={setIsVisibleSpeciesFilter}
         />

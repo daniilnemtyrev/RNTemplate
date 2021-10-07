@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
 
 import { StateSetter } from 'src/components/characters/filters-context'
@@ -36,11 +36,21 @@ const TextClearButton = styled.Text`
   font-weight: 400;
   line-height: 22px;
 `
+
+const Line = styled.View`
+  border-top-color: ${colors.gray[4]};
+  border-top-width: 1px;
+  width: 100%;
+  margin-top: 10px;
+  opacity: 0.2;
+`
+
 const CustomText = styled.Text``
 
 interface ModalState {
   setIsVisible: StateSetter<boolean>
   name: string
+  value: string
   updateFilter: (value: string) => void
 }
 
@@ -48,6 +58,7 @@ export const SearchFilterModal = ({
   setIsVisible,
   updateFilter,
   name,
+  value,
 }: ModalState) => {
   return (
     <Container>
@@ -58,7 +69,8 @@ export const SearchFilterModal = ({
         </StyledButtonBack>
       </Header>
 
-      <Input updateFilter={updateFilter} />
+      <Input value={value} updateFilter={updateFilter} />
+      <Line />
     </Container>
   )
 }
